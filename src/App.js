@@ -1,9 +1,10 @@
 import React, {Suspense} from "react";
 import { Canvas } from "@react-three/fiber";
 import './style.css'
-import {OrbitControls, PerspectiveCamera} from "@react-three/drei";
+import {CubeCamera, Environment, OrbitControls, PerspectiveCamera} from "@react-three/drei";
 import {Ground} from "./Utils/Ground";
 import {Car} from "./Utils/Car";
+import {Rings} from "./Utils/Rings";
 
 function CarShow(){
     return (
@@ -39,7 +40,16 @@ function CarShow(){
                 shadow-bias={-0.0001}
             />
 
-            <Car/>
+            <CubeCamera resolution={256} frames={Infinity}>
+                {(texture) => (
+                    <>
+                        <Environment map={texture} />
+                        <Car />
+                    </>
+                )}
+            </CubeCamera>
+
+            <Rings/>
 
             <Ground/>
         </>
